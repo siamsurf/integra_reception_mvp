@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{ tr("detail_title") }}: {{ lead.rid }}</h1>
+  <p><a href="/admin/{{ lead.rid }}/export.json">Экспорт JSON</a></p>
+
+  <div class="card">
+    <h2>{{ tr("section_lead") }}</h2>
+    <p><strong>{{ tr("label_service") }}:</strong> {{ tr("service_type_" ~ lead.service_type) }}</p>
+    <p><strong>{{ tr("label_status") }}:</strong> {{ tr("status_" ~ lead.status) }}</p>
+    <p><strong>{{ tr("label_client") }}:</strong> {{ lead.client_name }}</p>
+    <p><strong>{{ tr("field_phone") }}:</strong> {{ lead.phone }}</p>
+    <p><strong>{{ tr("field_email") }}:</strong> {{ lead.email or "-" }}</p>
+    <p><strong>{{ tr("label_created") }}:</strong> {{ lead.created_at }} UTC</p>
+    <p><strong>{{ tr("label_raw_text") }}:</strong></p>
+    <pre>{{ lead.raw_text }}</pre>
+  </div>
+
+  <div class="card">
+    <h2>{{ tr("section_validation") }}</h2>
+    <p><strong>{{ tr("label_service_type_mismatch") }}:</strong> {{ tr("yes") if validation_flags.service_type_mismatch else tr("no") }}</p>
+    <p><strong>{{ tr("label_suggested_service_type") }}:</strong>
+      {% if validation_flags.suggested_service_type %}
+        {{ tr("service_type_" ~ validation_flags.suggested_service_type) }}
+      {% else %}
+        -
+      {% endif %}
+    </p>
+    <p><strong>{{ tr("label_suspicious_input") }}:</strong> {{ tr("yes") if validation_flags.suspicious_input else tr("no") }}</p>
+    <p><strong>{{ tr("label_suspicious_reason") }}:</strong>
+      {% if validation_flags.suspicious_reason %}
+        {{ tr("suspicious_reason_" ~ validation_flags.suspicious_reason) }}
+      {% else %}
+        -
+      {% endif %}
+    </p>
+    {% if validation_flags.service_type_mismatch or validation_flags.suspicious_input %}
+      <p><strong>{{ tr("label_notes") }}:</strong>
+        {% if validation_flags.service_type_mismatch %}{{ tr("warning_service_type_mismatch") }} {% endif %}
+        {% if validation_flags.suspicious_input %}{{ tr("warning_suspicious_input") }}{% endif %}
+      </p>
+    {% endif %}
+  </div>
+
+  <div class="card">
+    <h2>{{ tr("section_ai") }}</h2>
+    {% if ai %}
+      <p><strong>{{ tr("label_classification") }}:</strong> {{ ai.classification }}</p>
+      <p><strong>{{ tr("label_model") }}:</strong> {{ ai.model_name }}</p>
+      <p><strong>{{ tr("label_fallback_used") }}:</strong> {{ tr("yes") if ai.fallback_used else tr("no") }}</p>
+      <p><strong>{{ tr("label_manager_summary") }}:</strong></p>
+      <pre>{{ ai.manager_summary }}</pre>
+      <p><strong>{{ tr("label_draft_reply") }}:</strong></p>
+      <pre>{{ ai.draft_reply }}</pre>
+    {% else %}
+      <p>{{ tr("no_ai_output") }}</p>
+    {% endif %}
+  </div>
+
+  <div class="card">
+    <h2>{{ tr("section_precheck") }}</h2>
+    {% if precheck %}
+      <p><strong>{{ tr("label_status") }}:</strong> {{ tr("precheck_status_" ~ precheck.precheck_status) }}</p>
+      <p><strong>{{ tr("label_missing_fields") }}:</strong>
+      {% if missing_fields %}
+        {% for field in missing_fields %}
+          {{ tr("missing_" ~ field) }}{% if not loop.last %}, {% endif %}
+        {% endfor %}
+      {% else %}
+        []
+      {% endif %}
+      </p>
+      <p><strong>{{ tr("label_notes") }}:</strong> {{ precheck.notes }}</p>
+    {% else %}
+      <p>{{ tr("no_precheck") }}</p>
+    {% endif %}
+  </div>
+
+  <div class="card">
+    <h2>{{ tr("section_attachments") }}</h2>
+    {% if attachments %}
+      <table>
+        <thead>
+          <tr>
+            <th>{{ tr("label_attachment_type") }}</th>
+            <th>{{ tr("label_attachment_source") }}</th>
+            <th>{{ tr("label_attachment_file_ref") }}</th>
+            <th>{{ tr("label_attachment_note") }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for a in attachments %}
+          <tr>
+            <td>{{ tr("attachment_type_" ~ a.attachment_type) }}</td>
+            <td>{{ tr("attachment_source_" ~ a.source_channel) }}</td>
+            <td>{{ a.file_name or a.file_ref or "-" }}</td>
+            <td>{{ a.note or "-" }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>{{ tr("no_attachments") }}</p>
+    {% endif %}
+  </div>
+{% endblock %}

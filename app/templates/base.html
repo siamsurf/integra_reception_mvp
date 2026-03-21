@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ tr("app_title") }}</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 2rem; color: #1c1c1c; }
+    nav a { margin-right: 1rem; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: 1rem; margin-top: 1rem; overflow-x: hidden; }
+    table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+    th, td { border: 1px solid #ddd; padding: 0.5rem; text-align: left; }
+    label { display: block; margin-top: 0.75rem; }
+    input, select, textarea { width: 100%; max-width: 640px; padding: 0.5rem; }
+    pre { white-space: pre-wrap; overflow-wrap: anywhere; word-break: break-word; max-width: 100%; }
+    .small { color: #555; font-size: 0.9rem; }
+    .status { font-weight: 600; }
+    .lang-toggle { margin-top: 0.75rem; }
+    .visually-hidden-file {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+      white-space: nowrap;
+    }
+    .file-trigger {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.45rem 0.7rem;
+      border: 1px solid #bbb;
+      border-radius: 6px;
+      background: #f7f7f7;
+      cursor: pointer;
+      max-width: 640px;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">{{ tr("nav_home") }}</a>
+    <a href="/new">{{ tr("nav_new") }}</a>
+    <a href="/admin">{{ tr("nav_admin") }}</a>
+  </nav>
+  <div class="lang-toggle">
+    {{ tr("lang_toggle") }}:
+    <a href="/set-lang?lang=ru&next={{ next_path_q }}">RU</a> |
+    <a href="/set-lang?lang=en&next={{ next_path_q }}">EN</a>
+  </div>
+  {% block content %}{% endblock %}
+</body>
+</html>

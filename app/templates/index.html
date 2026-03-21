@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{ tr("home_title") }}</h1>
+  <p>{{ tr("home_desc") }} <strong>{{ tr("service_type_delivery") }}</strong> and <strong>{{ tr("service_type_supplier_check") }}</strong>.</p>
+  <div class="card">
+    <p><a href="/new">{{ tr("home_open_new") }}</a></p>
+    <p><a href="/admin">{{ tr("home_open_admin") }}</a></p>
+  </div>
+{% endblock %}

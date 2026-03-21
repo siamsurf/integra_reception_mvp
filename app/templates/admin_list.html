@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{ tr("admin_title") }}</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>{{ tr("table_rid") }}</th>
+        <th>{{ tr("table_status") }}</th>
+        <th>{{ tr("table_service_type") }}</th>
+        <th>{{ tr("table_created_at") }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for lead in leads %}
+      <tr>
+        <td><a href="/admin/{{ lead.rid }}">{{ lead.rid }}</a></td>
+        <td>{{ tr("status_" ~ lead.status) }}</td>
+        <td>{{ tr("service_type_" ~ lead.service_type) }}</td>
+        <td>{{ lead.created_at }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="4">{{ tr("no_leads") }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

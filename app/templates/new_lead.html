@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{ tr("new_title") }}</h1>
+  {% if error %}
+    <div class="card">
+      <p>{{ error }}</p>
+    </div>
+  {% endif %}
+
+  <form method="post" action="/new" enctype="multipart/form-data">
+    <label for="service_type">{{ tr("field_service_type") }}</label>
+    <select id="service_type" name="service_type" required>
+      <option value="delivery">{{ tr("service_type_delivery") }}</option>
+      <option value="supplier_check">{{ tr("service_type_supplier_check") }}</option>
+    </select>
+
+    <label for="client_name">{{ tr("field_client_name") }}</label>
+    <input id="client_name" name="client_name" required />
+
+    <label for="phone">{{ tr("field_phone") }}</label>
+    <input id="phone" name="phone" required />
+
+    <label for="email">{{ tr("field_email") }}</label>
+    <input id="email" name="email" type="email" />
+
+    <label for="raw_text">{{ tr("field_raw_text") }}</label>
+    <textarea id="raw_text" name="raw_text" rows="8" required></textarea>
+
+    <label for="attachments">{{ tr("field_attachments") }}</label>
+    <input
+      id="attachments"
+      name="attachments"
+      type="file"
+      multiple
+      accept="{{ attachment_accept_attr }}"
+      class="visually-hidden-file"
+    />
+    <label for="attachments" class="file-trigger">{{ tr("field_attachments") }}</label>
+    <p
+      id="attachments-selected"
+      class="small"
+      data-selected-count="{{ tr('attachments_selected_count', count='{count}') }}"
+    ></p>
+    <p class="small">{{ tr("attachments_help", exts=attachment_allowed_extensions | join(", "), max_files=attachment_max_files_per_lead, max_size_mb=attachment_max_file_size_mb) }}</p>
+
+    <p><button type="submit">{{ tr("btn_submit") }}</button></p>
+  </form>
+
+  {% if result %}
+    <div class="card">
+      <h2>{{ tr("submission_title") }}</h2>
+      <p><strong>{{ tr("label_rid") }}:</strong> {{ result.rid }}</p>
+      <p><span class="status">{{ tr("label_status") }}:</span> {{ tr("status_" ~ result.status) }}</p>
+      <p><strong>{{ tr("label_next_steps") }}:</strong> {{ result.next_steps }}</p>
+      <p class="small"><a href="/admin/{{ result.rid }}">{{ tr("open_in_admin") }}</a></p>
+    </div>
+  {% endif %}
+
+  <script>
+    (function () {
+      const input = document.getElementById("attachments");
+      const selected = document.getElementById("attachments-selected");
+      if (!input || !selected) return;
+
+      const countTemplate = selected.dataset.selectedCount || "Selected {count} files.";
+
+      input.addEventListener("change", function () {
+        const files = input.files;
+        if (!files || files.length === 0) {
+          selected.textContent = "";
+          return;
+        }
+
+        if (files.length === 1) {
+          selected.textContent = files[0].name;
+          return;
+        }
+
+        selected.textContent = countTemplate.replace("{count}", String(files.length));
+      });
+    })();
+  </script>
+{% endblock %}
