@@ -52,3 +52,11 @@ python3 -m app.adapters.vk_longpoll
 - `VK_API_VERSION` (optional, default: `5.131`)
 - `VK_WAIT` (optional, default: `25`)
 - `VK_LANG` (optional, default: `ru`)
+
+## Project Materials / Материалы проекта
+
+- Commercial Proposal / Коммерческое предложение: `docs/kp/kp.md`
+- Completion Report / Отчёт о выполнении: `docs/report/report.md`
+- Screenshots Checklist / Чек-лист скриншотов: `docs/screenshots/README.md`
+- Resume and Portfolio / Резюме и портфолио: `docs/resume_portfolio/README.md`
+
