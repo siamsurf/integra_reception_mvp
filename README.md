@@ -21,6 +21,7 @@ uvicorn app.main:app --reload
 ```
 
 ## Run VK Worker
+Start this worker in a separate terminal after launching the FastAPI app.
 
 ```bash
 python3 -m app.adapters.vk_longpoll
