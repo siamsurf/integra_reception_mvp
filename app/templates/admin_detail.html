@@ -8,6 +8,7 @@
     <p><strong>{{ tr("label_service") }}:</strong> {{ tr("service_type_" ~ lead.service_type) }}</p>
     <p><strong>{{ tr("label_status") }}:</strong> {{ tr("status_" ~ lead.status) }}</p>
     <p><strong>{{ tr("label_client") }}:</strong> {{ lead.client_name }}</p>
+    <p><strong>Источник:</strong> {{ "VK" if lead.phone and lead.phone.startswith("vk:") else "Web" }}</p>
     <p><strong>{{ tr("field_phone") }}:</strong> {{ lead.phone }}</p>
     <p><strong>{{ tr("field_email") }}:</strong> {{ lead.email or "-" }}</p>
     <p><strong>{{ tr("label_created") }}:</strong> {{ lead.created_at }} UTC</p>
