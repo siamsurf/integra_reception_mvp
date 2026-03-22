@@ -1,4 +1,8 @@
 # INTEGRA Reception Hub + Quote Precheck (FastAPI MVP)
+Проект выпускной работы: MVP-сервис для приёма и первичной обработки заявок в логистике INTEGRA GROUP.
+
+Стек: FastAPI + SQLite + Jinja2.  
+Реализованы web-интерфейс, admin panel, приём заявок из VK, attachment layer, validation flags и fallback-извлечение через OpenAI API.
 
 Minimal code-first FastAPI MVP for reception intake with two service flows:
 - `delivery`
