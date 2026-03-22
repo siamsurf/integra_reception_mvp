@@ -7,6 +7,7 @@
         <th>{{ tr("table_rid") }}</th>
         <th>{{ tr("table_status") }}</th>
         <th>{{ tr("table_service_type") }}</th>
+        <th>Источник</th>
         <th>{{ tr("table_created_at") }}</th>
       </tr>
     </thead>
@@ -16,10 +17,11 @@
         <td><a href="/admin/{{ lead.rid }}">{{ lead.rid }}</a></td>
         <td>{{ tr("status_" ~ lead.status) }}</td>
         <td>{{ tr("service_type_" ~ lead.service_type) }}</td>
+        <td>{{ "VK" if lead.phone and lead.phone.startswith("vk:") else "Web" }}</td>
         <td>{{ lead.created_at }}</td>
       </tr>
       {% else %}
-      <tr><td colspan="4">{{ tr("no_leads") }}</td></tr>
+      <tr><td colspan="5">{{ tr("no_leads") }}</td></tr>
       {% endfor %}
     </tbody>
   </table>
