@@ -57,6 +57,6 @@ python3 -m app.adapters.vk_longpoll
 
 - Commercial Proposal / Коммерческое предложение: `docs/kp/kp.md`
 - Completion Report / Отчёт о выполнении: `docs/report/report.md`
-- Screenshots Checklist / Чек-лист скриншотов: `docs/screenshots/README.md`
+- Screenshots / Скриншоты: `docs/screenshots/README.md`
 - Resume and Portfolio / Резюме и портфолио: `docs/resume_portfolio/README.md`
 
